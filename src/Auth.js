@@ -1,6 +1,6 @@
-
-import { auth} from "./Firebase";
-import {createUserWithEmailAndPassword,} from "firebase/auth";
+  
+import { auth, googleProvider} from "./Firebase";
+import {createUserWithEmailAndPassword, signInWithPopup, signOut} from "firebase/auth";
 import { useState } from "react";
 
 export const Auth = () => {
@@ -12,6 +12,13 @@ export const Auth = () => {
   const signIn= async ()=>{
   await createUserWithEmailAndPassword(auth,email,password)
 };
+const signInwithGoogle= async ()=>{
+  await signInWithPopup(auth, googleProvider)
+};
+const logout= async ()=>{
+  await signOut(auth)
+};
+
 
   return (
 
@@ -28,6 +35,10 @@ export const Auth = () => {
         onChange={(e) => setPassword(e.target.value)}
       /><br/>
       <button className='bt' onClick={signIn}>Register</button>
+
+      <button onClick={signInwithGoogle}>Sign in with Google</button>
+
+      <button onClick={logout}>Sign Out</button>
 
     </div>
   );
